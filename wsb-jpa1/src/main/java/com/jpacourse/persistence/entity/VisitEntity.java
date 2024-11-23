@@ -1,13 +1,10 @@
 package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "VISIT")
@@ -45,5 +42,20 @@ public class VisitEntity {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+
+	// One-sided relationship from Visit to Patient
+	@ManyToOne(optional = false) // Many-to-One relationship
+	@JoinColumn(name = "patient_id", nullable = false)
+	private PatientEntity patient; // Many-to-One relationship
+
+	// One-sided relationship from Visit to Doctor
+	@ManyToOne(optional = false) // Many-to-One relationship
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor; // Many-to-One relationship
+
+	// One-to-many relationship from Visit to MedicalTreatment
+	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MedicalTreatmentEntity> medicalTreatments = new ArrayList<>(); // One-to-Many relationship
+
 
 }

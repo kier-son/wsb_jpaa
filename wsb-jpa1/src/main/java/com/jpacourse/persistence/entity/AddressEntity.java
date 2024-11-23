@@ -1,10 +1,8 @@
 package com.jpacourse.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -61,5 +59,13 @@ public class AddressEntity {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
+
+	// One-sided relationship from Address to Doctor
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DoctorEntity> doctors = new ArrayList<>(); // One-to-Many relationship
+
+	// One-sided relationship from Address to Patient
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PatientEntity> patients = new ArrayList<>(); // One-to-Many relationship
 
 }

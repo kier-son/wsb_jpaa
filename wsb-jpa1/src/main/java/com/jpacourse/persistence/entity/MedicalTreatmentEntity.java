@@ -2,14 +2,9 @@ package com.jpacourse.persistence.entity;
 
 import com.jpacourse.persistence.enums.TreatmentType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MEDICAL_TREATMENT")
@@ -48,5 +43,10 @@ public class MedicalTreatmentEntity {
 	public void setType(TreatmentType type) {
 		this.type = type;
 	}
+
+	// One-sided relationship from MedicalTreatment to Visit
+	@ManyToOne(optional = false) // Many-to-One relationship
+	@JoinColumn(name = "visit_id", nullable = false)
+	private VisitEntity visit; // Many-to-One relationship
 
 }

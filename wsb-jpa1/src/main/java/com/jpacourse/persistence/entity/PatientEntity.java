@@ -1,13 +1,10 @@
 package com.jpacourse.persistence.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "PATIENT")
@@ -89,5 +86,15 @@ public class PatientEntity {
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
+	// One-sided relationship from Patient to Address
+	@ManyToOne(optional = false) // Many-to-One relationship
+	@JoinColumn(name = "address_id", nullable = false)
+	private AddressEntity address; // Many-to-One relationship
+
+	// One-to-many relationship from Patient to Visit
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VisitEntity> visits = new ArrayList<>(); // One-to-Many relationship
+
 
 }
