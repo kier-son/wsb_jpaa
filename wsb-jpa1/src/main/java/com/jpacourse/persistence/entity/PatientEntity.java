@@ -3,6 +3,7 @@ package com.jpacourse.persistence.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -96,5 +97,36 @@ public class PatientEntity {
 	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<VisitEntity> visits = new ArrayList<>(); // One-to-Many relationship
 
+	@Column(nullable = false)
+	private int age;
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<VisitEntity> visits;
+	@ManyToMany
+	@JoinTable(
+			name = "PATIENT_TO_ADDRESS",
+			joinColumns = @JoinColumn(name = "patient_id", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "address_id", nullable = false)
+	)
+	private Set<AddressEntity> addresses;
+
+	public Set<VisitEntity> getVisits() {
+		return (Set<VisitEntity>) visits;
+	}
+
+	public void setVisits(Set<VisitEntity> visits) {
+		this.visits = (List<VisitEntity>) visits;
+	}
+	public Set<AddressEntity> getAddresses() {
+		return addresses;
+	}
+	public void setAddresses(Set<AddressEntity> addresses) {
+		this.addresses = addresses;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 
 }

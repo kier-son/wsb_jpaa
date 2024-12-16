@@ -8,9 +8,9 @@ INSERT INTO doctor (id, first_name, last_name, telephone_number, email, doctor_n
                                                                                                                        (1, 'Jan', 'Kowalski', '123456789', 'jan.kowalski@przychodnia.pl', 'D001', 'Kardiolog', 1),
                                                                                                                        (2, 'Anna', 'Nowak', '987654321', 'anna.nowak@przychodnia.pl', 'D002', 'Dermatolog', 2);
 
-INSERT INTO patient (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id) VALUES
-                                                                                                                             (1, 'Piotr', 'Wiśniewski', '555111222', 'piotr.wisniewski@pacjent.pl', 'P001', '1985-03-15', 3),
-                                                                                                                             (2, 'Maria', 'Zielińska', '555333444', 'maria.zielinska@pacjent.pl', 'P002', '1992-07-25', 4);
+INSERT INTO patient (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id, age) VALUES
+                                                                                                                             (1, 'Piotr', 'Wiśniewski', '555111222', 'piotr.wisniewski@pacjent.pl', 'P001', '1985-03-15', 3, '41'),
+                                                                                                                             (2, 'Maria', 'Zielińska', '555333444', 'maria.zielinska@pacjent.pl', 'P002', '1992-07-25', 4, '32');
 INSERT INTO visit (id, description, time, doctor_id, patient_id) VALUES
                                                                      (1, 'Kontrola po operacji serca', '2024-12-01 10:00:00', 1, 1),
                                                                      (2, 'Badanie skóry', '2024-12-01 11:30:00', 2, 2),

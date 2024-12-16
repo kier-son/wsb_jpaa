@@ -2,6 +2,7 @@ package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.*;
@@ -43,19 +44,34 @@ public class VisitEntity {
 		this.time = time;
 	}
 
-	// One-sided relationship from Visit to Patient
-	@ManyToOne(optional = false) // Many-to-One relationship
-	@JoinColumn(name = "patient_id", nullable = false)
-	private PatientEntity patient; // Many-to-One relationship
-
-	// One-sided relationship from Visit to Doctor
-	@ManyToOne(optional = false) // Many-to-One relationship
-	@JoinColumn(name = "doctor_id", nullable = false)
-	private DoctorEntity doctor; // Many-to-One relationship
-
-	// One-to-many relationship from Visit to MedicalTreatment
 	@OneToMany(mappedBy = "visit", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<MedicalTreatmentEntity> medicalTreatments = new ArrayList<>(); // One-to-Many relationship
+	private Collection<MedicalTreatmentEntity> medicalTreatments;
+	@ManyToOne
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private DoctorEntity doctor;
+	@ManyToOne
+	@JoinColumn(name = "patient_id", nullable = false)
+	private PatientEntity patient;
 
+	public Collection<MedicalTreatmentEntity> getMedicalTreatments() {
+		return medicalTreatments;
+	}
 
+	public void setMedicalTreatments(Collection<MedicalTreatmentEntity> medicalTreatments) {
+		this.medicalTreatments = medicalTreatments;
+	}
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+	public PatientEntity getPatient() {
+		return patient;
+	}
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
 }
