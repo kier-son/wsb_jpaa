@@ -2,12 +2,7 @@ package com.jpacourse.persistence.entity;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "VISIT")
@@ -45,5 +40,17 @@ public class VisitEntity {
 	public void setTime(LocalDateTime time) {
 		this.time = time;
 	}
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "doctor_id")
+	private DoctorEntity doctor; // Jednostronna relacja od strony dziecka (Visit)
+
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "patient_id")
+	private PatientEntity patient; // Jednostronna relacja od strony dziecka (Visit)
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "medical_treatment_id", nullable = false)
+	private MedicalTreatmentEntity medicalTreatment; // Jednostronna relacja od strony rodzica (Visit)
 
 }
