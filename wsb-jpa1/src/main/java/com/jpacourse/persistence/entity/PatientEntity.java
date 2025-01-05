@@ -1,6 +1,7 @@
 package com.jpacourse.persistence.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -86,11 +87,32 @@ public class PatientEntity {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	@Column
+	private Integer healthScore; // Nowe pole
+
+	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VisitEntity> visits = new ArrayList<>();
+
+	// Gettery i settery
+	public Integer getHealthScore() {
+		return healthScore;
+	}
+
+	public void setHealthScore(Integer healthScore) {
+		this.healthScore = healthScore;
+	}
+
+	public List<VisitEntity> getVisits() {
+		return visits;
+	}
+
+	public void setVisits(List<VisitEntity> visits) {
+		this.visits = visits;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", nullable = false)
 	private AddressEntity address; // Jednostronna relacja od strony dziecka (Patient)
 
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<VisitEntity> visits; // Dwustronna relacja z Visit
 
 }

@@ -14,9 +14,9 @@ INSERT INTO medical_treatment (description, type) VALUES
                                                       ('Surgery', 'Specialist');
 
 -- Add patients
-INSERT INTO patient (date_of_birth, email, first_name, last_name, patient_number, telephone_number, address_id) VALUES
-                                                                                                                    ('1985-06-15', 'patient1@example.com', 'Piotr', 'Wiśniewski', 'P1234', '555123456', 1),
-                                                                                                                    ('1990-11-22', 'patient2@example.com', 'Katarzyna', 'Zielinska', 'P5678', '555987654', 2);
+INSERT INTO patient (date_of_birth, email, first_name, last_name, patient_number, telephone_number, health_score, address_id) VALUES
+                                                                                                                    ('1985-06-15', 'patient1@example.com', 'Piotr', 'Wiśniewski', 'P1234', '555123456', 85, 1),
+                                                                                                                    ('1990-11-22', 'patient2@example.com', 'Katarzyna', 'Zielinska', 'P5678', '555987654', 90, 2);
 
 -- Add visits
 INSERT INTO visit (description, time, doctor_id, medical_treatment_id, patient_id) VALUES

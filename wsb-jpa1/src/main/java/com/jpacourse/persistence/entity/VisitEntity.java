@@ -42,15 +42,40 @@ public class VisitEntity {
 	}
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "doctor_id")
-	private DoctorEntity doctor; // Jednostronna relacja od strony dziecka (Visit)
+	@JoinColumn(name = "patient_id")
+	private PatientEntity patient;
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "patient_id")
-	private PatientEntity patient; // Jednostronna relacja od strony dziecka (Visit)
+	@JoinColumn(name = "doctor_id")
+	private DoctorEntity doctor;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "medical_treatment_id", nullable = false)
-	private MedicalTreatmentEntity medicalTreatment; // Jednostronna relacja od strony rodzica (Visit)
+	@JoinColumn(name = "medical_treatment_id")
+	private MedicalTreatmentEntity medicalTreatment;
+
+	// Gettery i settery
+	public PatientEntity getPatient() {
+		return patient;
+	}
+
+	public void setPatient(PatientEntity patient) {
+		this.patient = patient;
+	}
+
+	public DoctorEntity getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(DoctorEntity doctor) {
+		this.doctor = doctor;
+	}
+
+	public MedicalTreatmentEntity getMedicalTreatment() {
+		return medicalTreatment;
+	}
+
+	public void setMedicalTreatment(MedicalTreatmentEntity medicalTreatment) {
+		this.medicalTreatment = medicalTreatment;
+	}
 
 }

@@ -42,8 +42,16 @@ public class MedicalTreatmentEntity {
 		this.type = type;
 	}
 
-	@OneToOne(mappedBy = "medicalTreatment", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "VISIT_ID", nullable = false)
-	private VisitEntity visit; // Dwustronna relacja z Visit
+	@OneToOne(mappedBy = "medicalTreatment")
+	private VisitEntity visit;
+
+	// Gettery i settery
+	public VisitEntity getVisit() {
+		return visit;
+	}
+
+	public void setVisit(VisitEntity visit) {
+		this.visit = visit;
+	}
 
 }
