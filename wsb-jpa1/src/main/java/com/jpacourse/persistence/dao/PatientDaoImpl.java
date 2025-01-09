@@ -43,5 +43,6 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
     }
 
     private void merge(PatientEntity patient) {
+        
     }
 }

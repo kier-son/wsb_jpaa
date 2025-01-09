@@ -114,5 +114,7 @@ public class PatientEntity {
 	@JoinColumn(name = "address_id", nullable = false)
 	private AddressEntity address; // Jednostronna relacja od strony dziecka (Patient)
 
+	@Version
+	private Long version;
 
 }
