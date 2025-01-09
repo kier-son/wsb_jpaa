@@ -1,8 +1,6 @@
-import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
 import org.testng.annotations.Test;
-import com.jpacourse.service.impl.VisitService;
-import com.jpacourse.repository.PatientRepository;
+
 import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;

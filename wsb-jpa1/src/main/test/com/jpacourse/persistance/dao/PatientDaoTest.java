@@ -1,3 +1,15 @@
+import com.jpacourse.persistence.entity.DoctorEntity;
+import com.jpacourse.persistence.entity.PatientEntity;
+import com.jpacourse.persistence.entity.VisitEntity;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.transaction.Transactional;
+
+import java.time.LocalDateTime;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional

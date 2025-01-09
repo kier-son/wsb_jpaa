@@ -1,14 +1,10 @@
 import com.jpacourse.persistance.dao.Rollback;
 import com.jpacourse.persistence.entity.PatientEntity;
 import org.testng.annotations.Test;
-import com.jpacourse.repository.PatientRepository;
-
 import javax.persistence.OptimisticLockException;
 import javax.transaction.Transactional;
-import java.util.List;
 
 import static org.testng.Assert.assertThrows;
-import static org.testng.AssertJUnit.assertEquals;
 @Test
 @Transactional
 @Rollback

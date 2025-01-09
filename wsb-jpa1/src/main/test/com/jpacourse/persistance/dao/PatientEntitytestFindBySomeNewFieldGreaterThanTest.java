@@ -1,6 +1,8 @@
 import com.jpacourse.persistence.entity.PatientEntity;
 import org.testng.annotations.Test;
-
+import org.testng.annotations.Test;
+import javax.persistence.OptimisticLockException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
