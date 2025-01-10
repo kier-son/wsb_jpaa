@@ -1,6 +1,6 @@
-package com.jpacourse.persistence.dao;
+package com.jpacourse.persistence.dao.impl;
 
-import com.jpacourse.persistence.dao.impl.AbstractDao;
+import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.MedicalTreatmentEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
