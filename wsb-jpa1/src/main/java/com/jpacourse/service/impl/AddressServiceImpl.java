@@ -27,4 +27,13 @@ public class AddressServiceImpl implements AddressService
         final AddressEntity entity = addressDao.findOne(id);
         return AddressMapper.mapToTO(entity);
     }
+
+    @Override
+    public AddressTO AddAddress(AddressTO addressTO) 
+    {
+        AddressEntity addressEntity = AddressMapper.mapToEntity(addressTO);
+        addressEntity = addressDao.save(addressEntity);
+        
+        return AddressMapper.mapToTO(addressEntity);
+    }
 }

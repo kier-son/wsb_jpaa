@@ -9,13 +9,14 @@ import com.jpacourse.persistence.enums.TreatmentType;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
+    
     @Override
-    public VisitEntity addVisitToPatient(Long patientId, Long doctorId,
-                                         LocalDateTime visitTime,
-                                         String visitDescription) {
+    public VisitEntity addVisitToPatient(Long patientId, Long doctorId, LocalDateTime visitTime, String visitDescription) 
+    {
         // Pobierz pacjenta i lekarza
         PatientEntity patient = findOne(patientId);
         DoctorEntity doctor = entityManager.find(DoctorEntity.class, doctorId);
@@ -42,7 +43,22 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         return visit;
     }
 
-    private void merge(PatientEntity patient) {
-        
+    private void merge(PatientEntity patient) 
+    {
+        entityManager.merge(patient);
+    }
+
+    public List<PatientEntity> FindByLastName(String lastName) 
+    {
+        return entityManager.createQuery("SELECT p FROM PatientEntity p WHERE p.lastName = :lastName", PatientEntity.class)
+                .setParameter("lastName", lastName).getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> FindPatientsWithMoreThanXVisits(long visitCount) 
+    {
+        return entityManager.createQuery("SELECT p FROM PatientEntity p JOIN p.visits v GROUP BY p " + 
+                        "HAVING COUNT(v) > :visitCount", PatientEntity.class)
+                        .setParameter("visitCount", visitCount).getResultList();
     }
 }

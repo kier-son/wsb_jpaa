@@ -9,10 +9,13 @@ import com.jpacourse.persistence.enums.TreatmentType;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface PatientDao extends Dao<PatientEntity, Long> {
     VisitEntity addVisitToPatient(Long patientId, Long doctorId,
                                   LocalDateTime visitTime,
                                   String visitDescription);
+
+    public List<PatientEntity> FindPatientsWithMoreThanXVisits(long visitCount);
 }
 
