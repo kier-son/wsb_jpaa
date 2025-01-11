@@ -1,7 +1,8 @@
-package test.com.jpacourse.service;
+package com.jpacourse.service;
 
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
+import com.jpacourse.persistence.dao.DoctorDao;
 import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
@@ -9,22 +10,31 @@ import com.jpacourse.service.PatientService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+//@SpringBootApplication(scanBasePackages = "com.jpacourse")
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
-public class PatientServiceTest {
+public class PatientServiceTest 
+{
+    //@Autowired
+    //private PatientService patientService;
+    
+    @Test
+    public void TestHealthScore()
+    {
+        
+    }
+    
     /*@Autowired
     private PatientService patientService;
-    @Autowired
-    private PatientDao patientDao;
-    @Autowired
-    private DoctorDao doctorDao;
+
+    //@Autowired
+    //private DoctorService doctorService;
 
     @Test
     public void testDeletePatientCascade() {

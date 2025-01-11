@@ -1,4 +1,4 @@
-package test.com.jpacourse.persistance.dao;
+package com.jpacourse.dao;
 
 //import com.jpacourse.persistance.dao.DoctorDao;
 import com.jpacourse.persistence.dao.PatientDao;
