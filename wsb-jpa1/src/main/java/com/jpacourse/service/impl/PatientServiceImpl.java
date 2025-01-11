@@ -26,7 +26,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientDao patientRepository;
     
-    @Qualifier("visitDao")
     @Autowired
     private VisitDao visitRepository;
     

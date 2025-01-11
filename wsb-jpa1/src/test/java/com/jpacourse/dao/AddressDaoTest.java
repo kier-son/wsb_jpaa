@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.AssertJUnit.assertEquals;
 
-@SpringBootApplication(scanBasePackages = "com.jpacourse")
+//@SpringBootApplication(scanBasePackages = "com.jpacourse")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AddressDaoTest

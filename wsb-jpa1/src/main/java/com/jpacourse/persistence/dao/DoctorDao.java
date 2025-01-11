@@ -1,4 +1,8 @@
 package com.jpacourse.persistence.dao;
 
-public interface DoctorDao {
+import com.jpacourse.persistence.entity.DoctorEntity;
+
+public interface DoctorDao extends Dao<DoctorEntity, Long>
+{
+    
 }
