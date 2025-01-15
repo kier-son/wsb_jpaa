@@ -10,7 +10,8 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<PatientEntity, Long> {
 
     // Znajdź pacjentów po nazwisku
-    List<PatientEntity> findByLastName(String lastName);
+    @Query("SELECT p FROM PatientEntity p WHERE p.lastName = :lastName")
+    List<PatientEntity> findByLastName(@Param("lastName") String lastName);
 
     // Znajdź pacjentów, którzy mieli więcej niż X wizyt
     @Query("SELECT p FROM PatientEntity p WHERE SIZE(p.visits) > :visitCount")

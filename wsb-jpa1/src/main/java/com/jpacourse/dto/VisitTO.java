@@ -8,6 +8,7 @@ public class VisitTO {
     private LocalDateTime time;
     private String doctorFirstName;
     private String doctorLastName;
+    private DoctorTO doctor;
     private List<TreatmentTypeTO> treatmentTypes;
 
     // Gettery
@@ -25,4 +26,12 @@ public class VisitTO {
 
     public List<TreatmentTypeTO> getTreatmentTypes() { return treatmentTypes; }
     public void setTreatmentTypes(List<TreatmentTypeTO> treatmentTypes) { this.treatmentTypes = treatmentTypes; }
+
+    public DoctorTO GetDoctor() { return doctor; }
+    public void SetDoctor(DoctorTO doctor) 
+    { 
+        this.doctor = doctor;
+        doctorFirstName = doctor.getFirstName();
+        doctorLastName = doctor.getLastName();
+    }
 }

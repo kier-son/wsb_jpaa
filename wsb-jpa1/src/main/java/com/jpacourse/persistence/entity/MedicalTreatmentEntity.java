@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Table(name = "MEDICAL_TREATMENT")
 public class MedicalTreatmentEntity {
 
+	public MedicalTreatmentEntity() { }
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
