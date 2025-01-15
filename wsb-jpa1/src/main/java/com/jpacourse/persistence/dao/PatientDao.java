@@ -1,12 +1,7 @@
 package com.jpacourse.persistence.dao;
 
-import com.jpacourse.persistence.dao.impl.AbstractDao;
-import com.jpacourse.persistence.entity.DoctorEntity;
-import com.jpacourse.persistence.entity.MedicalTreatmentEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
-import com.jpacourse.persistence.enums.TreatmentType;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,5 +12,9 @@ public interface PatientDao extends Dao<PatientEntity, Long> {
                                   String visitDescription);
 
     public List<PatientEntity> FindPatientsWithMoreThanXVisits(long visitCount);
+    
+    public List<PatientEntity> FindByLastName(String value);
+    
+    public List<PatientEntity> FindByHealthScore(Integer healthScore);
 }
 

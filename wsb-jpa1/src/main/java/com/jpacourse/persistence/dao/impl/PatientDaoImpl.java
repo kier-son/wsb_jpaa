@@ -48,6 +48,7 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         entityManager.merge(patient);
     }
 
+    @Override
     public List<PatientEntity> FindByLastName(String lastName) 
     {
         return entityManager.createQuery("SELECT p FROM PatientEntity p WHERE p.lastName = :lastName", PatientEntity.class)
@@ -60,5 +61,11 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         return entityManager.createQuery("SELECT p FROM PatientEntity p JOIN p.visits v GROUP BY p " + 
                         "HAVING COUNT(v) > :visitCount", PatientEntity.class)
                         .setParameter("visitCount", visitCount).getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> FindByHealthScore(Integer healthScore) {
+        return entityManager.createQuery("SELECT p FROM PatientEntity p WHERE p.healthScore = :healthScore", PatientEntity.class)
+                .setParameter("healthScore", healthScore).getResultList();
     }
 }

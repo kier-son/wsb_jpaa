@@ -9,7 +9,6 @@ import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
 import com.jpacourse.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,9 +21,6 @@ import java.util.stream.Collectors;
 public class PatientServiceImpl implements PatientService {
     
     private final PatientDao patientDao;
-
-    @Autowired
-    private PatientDao patientRepository;
     
     @Autowired
     private VisitDao visitRepository;
@@ -50,7 +46,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientTO AddPatient(PatientTO patientTO) 
     {
         PatientEntity patientEntity = PatientMapper.MapToEntity(patientTO);
-        patientRepository.save(patientEntity);
+        patientDao.save(patientEntity);
         
         return PatientMapper.mapToTO(patientEntity);
     }
@@ -63,9 +59,34 @@ public class PatientServiceImpl implements PatientService {
             return Collections.emptyList();
 
         List<VisitTO> visitTOs = visitEntities.stream().map(this::ToVisitTO).collect(Collectors.toList());
-        Collections.reverse(visitTOs);// Reverse the list in place
+        Collections.reverse(visitTOs);
         
         return visitTOs;
+    }
+
+    @Override
+    public List<PatientTO> GetAllPatients() 
+    {
+        return patientDao.findAll().stream().map(PatientMapper::mapToTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTO> GetAllPatientsByLastName(String lastName) 
+    {
+        return patientDao.FindByLastName(lastName).stream().map(PatientMapper::mapToTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTO> GetAllPatientsWithMoreVisitsThan(Integer value) 
+    {
+        return patientDao.FindPatientsWithMoreThanXVisits(value).stream().map(PatientMapper::mapToTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTO> FindByHealthScore(Integer healthScore) 
+    {
+        return patientDao.FindByHealthScore(healthScore).stream().map(PatientMapper::mapToTO).collect(Collectors.toList());
     }
 
     private VisitTO ToVisitTO(VisitEntity visitEntity) 

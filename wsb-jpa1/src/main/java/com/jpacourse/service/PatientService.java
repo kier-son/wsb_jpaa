@@ -16,5 +16,13 @@ public interface PatientService {
     void deletePatientById(Long id);
     PatientTO AddPatient(PatientTO patientTO);
     List<VisitTO> GetVisitsForPatient(Long id);
+
+    public List<PatientTO> GetAllPatients();
+
+    public List<PatientTO> GetAllPatientsByLastName(String lastName);
+
+    public List<PatientTO> GetAllPatientsWithMoreVisitsThan(Integer value);
+
+    public List<PatientTO> FindByHealthScore(Integer healthScore);
 }
 

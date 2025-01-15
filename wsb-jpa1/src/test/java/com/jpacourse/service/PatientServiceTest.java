@@ -16,22 +16,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-//@SpringBootApplication(scanBasePackages = "com.jpacourse")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PatientServiceTest 
 {
-    //@Autowired
-    //private PatientService patientService;
-    
-    @Test
-    public void TestHealthScore()
-    {
-        
-    }
-    
-    /*@Autowired
+    @Autowired
     private PatientService patientService;
+    
 
     //@Autowired
     //private DoctorService doctorService;
@@ -68,5 +59,5 @@ public class PatientServiceTest
         assertThat(firstVisit.getDoctorFirstName()).isNotNull();
         assertThat(firstVisit.getDoctorLastName()).isNotNull();
         assertThat(firstVisit.getTreatmentTypes()).isNotEmpty();
-    }*/
+    }
 }
