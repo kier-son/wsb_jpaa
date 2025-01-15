@@ -16,89 +16,53 @@ import javax.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 import static org.testng.Assert.assertThrows;
 import static org.testng.AssertJUnit.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class PatientDaoTest {
-    /*@Autowired
+public class PatientDaoTest 
+{
+
+    @Autowired
     private PatientDao patientDao;
-    //@Autowired
-    //private DoctorDao doctorDao;
 
     @Test
-    public void testAddVisitToPatient() 
+    void shouldReturnMatchingPatients() 
     {
-        // Pobierz istniejącego pacjenta i lekarza z bazy
-        PatientEntity patient = patientDao.findOne(1L);
-        DoctorEntity doctor = doctorDao.findOne(1L);
+        // Arrange
+        PatientEntity patient1 = new PatientEntity();
+        patient1.setFirstName("John");
+        patient1.setLastName("Smith");
+        patientDao.save(patient1);
 
-        int initialVisitsCount = patient.getVisits().size();
+        PatientEntity patient2 = new PatientEntity();
+        patient2.setFirstName("Jane");
+        patient2.setLastName("Smith");
+        patientDao.save(patient2);
 
-        // Dodaj wizytę
-        VisitEntity newVisit = patientDao.addVisitToPatient(
-                patient.getId(),
-                doctor.getId(),
-                LocalDateTime.now(),
-                "Testowa wizyta"
-        );
+        PatientEntity patient3 = new PatientEntity();
+        patient3.setFirstName("Michael");
+        patient3.setLastName("Johnson");
+        patientDao.save(patient3);
 
-        // Odśwież pacjenta
-        patient = patientDao.findOne(patient.getId());
+        // Act
+        List<PatientEntity> result = patientDao.FindByLastName("Smith");
 
-        // Sprawdź rezultat
-        assertThat(VisitEntity.getVisits()).hasSize(initialVisitsCount + 1);
-        assertThat(newVisit).isNotNull();
-        assertThat(newVisit.getPatient()).isEqualTo(patient);
-        assertThat(newVisit.getDoctor()).isEqualTo(doctor);
-    }
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
 
-    @Test
-    void testFindByLastName() {
-        List<PatientEntity> patients = patientRepository.findByLastName("Doe");
-        assertEquals(1, patients.size());
-        assertEquals("Jan", patients.get(0).getFirstName());
-    }
-
-    @Test
-    @Transactional
-    void testOptimisticLock() {
-        PatientEntity patient1 = patientRepository.findById(1L).orElseThrow();
-        PatientEntity patient2 = patientRepository.findById(1L).orElseThrow();
-
-        patient1.setLastName("UpdatedByFirstTransaction");
-        patient2.setLastName("UpdatedBySecondTransaction");
-
-        patientRepository.saveAndFlush(patient1);
-
-        assertThrows(OptimisticLockException.class, () -> {
-            patientRepository.saveAndFlush(patient2);
-        });
+        List<String> firstNames = result.stream()
+                .map(PatientEntity::getFirstName)
+                .collect(Collectors.toList());
+        assertTrue(firstNames.contains("John"), "Wynik powinien zawierać pacjenta o imieniu 'John'.");
+        assertTrue(firstNames.contains("Jane"), "Wynik powinien zawierać pacjenta o imieniu 'Jane'.");
     }
     
-    @Test
-    void testFindVisitsByPatientId() {
-        List<VisitEntity> visits = visitService.findVisitsByPatientId(1L);
-        assertEquals(2, visits.size());
-        assertEquals("Routine check-up", visits.get(0).getDescription());
-    }
-    
-    @Test
-    void testFindPatientsWithMoreThanXVisits() {
-        List<PatientEntity> patients = patientRepository.findPatientsWithMoreThanXVisits(1L);
-        assertEquals(1, patients.size());
-        assertEquals("John", patients.get(0).getFirstName());
-    }
-    
-    @Test
-    void testFindBySomeNewFieldGreaterThan() {
-        List<PatientEntity> patients = patientRepository.findBySomeNewFieldGreaterThan(30);
-        assertEquals(1, patients.size());
-        assertEquals("Jane", patients.get(0).getFirstName());
-    }
-    */
 }

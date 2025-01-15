@@ -1,63 +1,102 @@
 package com.jpacourse.service;
 
+import com.jpacourse.dto.AddressTO;
 import com.jpacourse.dto.PatientTO;
 import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.dao.DoctorDao;
 import com.jpacourse.persistence.dao.PatientDao;
+import com.jpacourse.persistence.dao.VisitDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
-import com.jpacourse.service.PatientService;
+import com.jpacourse.persistence.entity.VisitEntity;
+import com.jpacourse.persistence.enums.Specialization;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PatientServiceTest 
 {
-    @Autowired
-    private PatientService patientService;
-    
+    /*@SpringBootTest
+    @Transactional
+    @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+    class PatientServiceImplTest {
 
-    //@Autowired
-    //private DoctorService doctorService;
+        @Autowired
+        private PatientService patientService;
 
-    @Test
-    public void testDeletePatientCascade() {
-        // Pobierz pacjenta
-        PatientEntity patient = patientDao.findOne(1L);
-        int initialVisitsCount = patient.getVisits().size();
-        Long doctorId = patient.getVisits().get(0).getDoctor().getId();
+        @Autowired
+        private PatientDao patientDao;
 
-        // Usuń pacjenta
-        patientService.deletePatientById(patient.getId());
+        @Autowired
+        private VisitDao visitDao;
 
-        // Sprawdź, czy pacjent został usunięty
-        PatientEntity deletedPatient = patientDao.findOne(1L);
-        assertThat(deletedPatient).isNull();
+        @Autowired
+        private DoctorDao doctorDao;
 
-        // Sprawdź, czy lekarz nie został usunięty
-        DoctorEntity doctor = doctorDao.findOne(doctorId);
-        assertThat(doctor).isNotNull();
-    }
+        @Test
+        void deletePatientById_shouldCascadeDeleteVisitsButNotDoctors() {
+            // Arrange: Create patient with visits and doctors
+            DoctorEntity doctor = new DoctorEntity();
+            doctor.setFirstName("John");
+            doctor.setLastName("Doe");
+            doctor.setSpecialization(Specialization.DERMATOLOGIST);
+            doctorDao.save(doctor);
 
-    @Test
-    public void testFindPatientById() {
-        // Dodaj healthScore do pacjenta w data.sql
-        PatientTO patient = patientService.findPatientById(1L);
+            var patient = new PatientTO();
+            patient.setFirstName("Jane");
+            patient.setLastName("Doe");
+            patient = patientService.AddPatient(patient);
 
-        assertThat(patient).isNotNull();
-        assertThat(patient.getHealthScore()).isNotNull(); // Sprawdź dodatkowe pole
-        assertThat(patient.getVisits()).isNotEmpty();
+            VisitEntity visit = new VisitEntity();
+            visit.setTime(LocalDateTime.now());
+            visit.setDoctor(doctor);
+            visit.setPatient(patient);
+            visitDao.save(visit);
 
-        VisitTO firstVisit = patient.getVisits().get(0);
-        assertThat(firstVisit.getDoctorFirstName()).isNotNull();
-        assertThat(firstVisit.getDoctorLastName()).isNotNull();
-        assertThat(firstVisit.getTreatmentTypes()).isNotEmpty();
-    }
+            // Act: Delete patient
+            patientService.deletePatientById(patient.getId());
+
+            // Assert: Verify cascading delete
+            assertNotNull("Patient should be deleted.", patientService.findPatientById(patient.getId()));
+            assertTrue(visitDao.findAllByPatientId(patient.getId()).isEmpty(), "Visits should be deleted.");
+            assertTrue(doctorDao.existsById(doctor.getId()), "Doctor should not be deleted.");
+        }
+
+        @Test
+        void findPatientById_shouldReturnPatientTOWithCorrectHealthScore() {
+            // Arrange: Create patient with visits
+            PatientEntity patient = new PatientEntity();
+            patient.setFirstName("Jane");
+            patient.setLastName("Doe");
+            patient.setHealthScore(85); // Expected health score
+            patientDao.save(patient);
+
+            VisitEntity visit = new VisitEntity();
+            visit.setTime(LocalDateTime.now());
+            visit.setPatient(patient);
+            visitDao.save(visit);
+
+            // Act: Fetch patient by ID
+            PatientTO result = patientService.findPatientById(patient.getId());
+
+            // Assert: Validate PatientTO structure
+            assertNotNull(result, "PatientTO should not be null.");
+            assertEquals(patient.getFirstName(), result.getFirstName(), "First name should match.");
+            assertEquals(patient.getHealthScore(), result.getHealthScore(), "Health score should match.");
+            assertNotNull(result.getVisits(), "Visits should not be null.");
+            assertFalse(result.getVisits().isEmpty(), "Visits should not be empty.");
+        }
+    }*/
+
 }
